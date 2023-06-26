@@ -18,8 +18,6 @@ from typing import Dict, Iterable, List, Optional, Union
 
 from datetime import date, timedelta
 
-from hijri_converter import convert
-
 import holidays.countries
 import holidays.financial
 from holidays.holiday_base import HolidayBase
@@ -245,37 +243,6 @@ def list_supported_financial() -> Dict[str, List[str]]:
         if obj.__base__ == HolidayBase
     }
 
-
-def _islamic_to_gre(Gyear: int, Hmonth: int, Hday: int) -> List[date]:
-    """
-    Find the Gregorian dates of all instances of Islamic (Lunar Hijrī) calendar
-    month and day falling within the Gregorian year. There could be up to two
-    such instances in a single Gregorian year since the Islamic (Lunar Hijrī)
-    calendar is about 11 days shorter.
-
-    Relies on package `hijri_converter
-    <https://www.pypy.org/package/hijri_converter>`__.
-
-    :param Gyear:
-        The Gregorian year.
-
-    :param Hmonth:
-        The Lunar Hijrī (Islamic) month.
-
-    :param Hday:
-        The Lunar Hijrī (Islamic) day.
-
-    :return:
-        List of Gregorian dates within the Gregorian year specified that
-        matches the Islamic (Lunar Hijrī) calendar day and month specified.
-    """
-    Hyear = convert.Gregorian(Gyear, 1, 1).to_hijri().datetuple()[0]
-    gres = [
-        convert.Hijri(y, Hmonth, Hday).to_gregorian()
-        for y in range(Hyear - 1, Hyear + 2)
-    ]
-    gre_dates = [date(*gre.datetuple()) for gre in gres if gre.year == Gyear]
-    return gre_dates
 
 
 class _ChineseLuniSolar:
