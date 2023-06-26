@@ -1,5 +1,7 @@
 # Databricks notebook source
-# MAGIC %pip install holidays==0.14.2 -q
+# MAGIC %sql
+# MAGIC
+# MAGIC use catalog bootcamp
 
 # COMMAND ----------
 
@@ -309,5 +311,5 @@ generate_product_cdc_data()
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC 
+# MAGIC
 # MAGIC You now can run `generate_sales_dataset()` to populate sales dataset and `generate_more_orders()` to generate some orders for a random store with current date.
