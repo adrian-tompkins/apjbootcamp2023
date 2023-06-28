@@ -253,15 +253,14 @@ def generate_sales_dataset(n = 3):
   start_date =  pd.to_datetime(today) - pd.DateOffset(months=n) + pd.offsets.MonthBegin(-1)
   end_date = pd.to_datetime(today)
 
-  store_ids = sc.parallelize(['AKL01','AKL02','WLG01','SYD01','SYD02','BNE01','BNE02','WLG01','MEL01','MEL02','CBR01','PER02'])
+  store_ids = ['AKL01','AKL02','WLG01','SYD01','SYD02','BNE01','BNE02','WLG01','MEL01','MEL02','CBR01','PER02']
 
-
-  generated_data = store_ids.map(lambda x: (x, generate_daily_order_details(x, start_date, end_date)))
-
-  for i in generated_data.collect():
-    df = spark.createDataFrame(i[1])
-    store_id = i[0]
+  for store_id in store_ids:
+    details = generate_daily_order_details(store_id, start_date, end_date)
+    df = spark.createDataFrame(details)
     store_as_json(df, store_id, f'{start_date.strftime("%Y-%m-%d")}-{end_date.strftime("%Y-%m-%d")}')
+    
+  return "New sales data generated in folder: " + f"{datasets_location}sales/"
 
 
 

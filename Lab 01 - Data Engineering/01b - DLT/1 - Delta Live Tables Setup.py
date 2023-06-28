@@ -44,9 +44,10 @@ storage_location = f'/FileStore/tmp/{current_user_id}/dlt_pipeline'
 pipline_name = f"{current_user_id}_pipeline"
 notebook_path = f"/Repos/{current_user_id}/apjbootcamp2023/Lab 01 - Data Engineering/01b - DLT/2 - Transform"
 
+displayHTML("""<h2>Use these values to create your Delta Live Pipeline</h2>""")
 displayHTML("""<b>Pipeline name: </b>""")
 displayHTML(f"""<b style="color:green">{pipline_name}</b>""")
-displayHTML("""<h2>Use these values to create your Delta Live Pipeline</h2>""")
+
 
 displayHTML("""<b>Pipeline Mode: </b>""")
 displayHTML(f"""<b style="color:green">Triggered</b>""")

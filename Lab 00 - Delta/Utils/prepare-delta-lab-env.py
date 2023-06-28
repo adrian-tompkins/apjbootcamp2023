@@ -25,7 +25,7 @@ import os
 
 working_dir = '/'.join(os.getcwd().split('/')[0:5])
 git_datasets_location = f'{working_dir}/Datasets/dimensions/'
-
+dbutils.fs.cp(f'file:{git_datasets_location}', f'{datasets_location}raw/', True)
 # move all dimensions to their directories
 dimensions  =['products','stores','users']
 for dim in dimensions:
