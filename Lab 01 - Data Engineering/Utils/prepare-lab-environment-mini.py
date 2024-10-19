@@ -1,11 +1,10 @@
 # Databricks notebook source
 # MAGIC %sql
-# MAGIC use catalog bootcamp
+# MAGIC use catalog datafoundations_sandpit
 
 # COMMAND ----------
 
 current_user_id = dbutils.notebook.entry_point.getDbutils().notebook().getContext().userName().get()
-datasets_location = f'/FileStore/tmp/{current_user_id}/datasets/'
 
 
 # COMMAND ----------

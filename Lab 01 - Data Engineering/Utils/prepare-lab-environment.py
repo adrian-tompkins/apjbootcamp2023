@@ -1,14 +1,10 @@
 # Databricks notebook source
 # MAGIC %sql
-# MAGIC use catalog bootcamp
+# MAGIC use catalog datafoundations_sandpit
 
 # COMMAND ----------
 
 current_user_id = dbutils.notebook.entry_point.getDbutils().notebook().getContext().userName().get()
-datasets_location = f'/FileStore/tmp/{current_user_id}/datasets/'
-
-dbutils.fs.rm(datasets_location, True)
-print(f'Dataset files are generated at location: %s' %datasets_location)
 
 # COMMAND ----------
 
@@ -19,17 +15,35 @@ print(f'Created Database: %s' %database_name)
 
 # COMMAND ----------
 
+spark.sql("create volume if not exists bootcamp")
+
+# COMMAND ----------
+
+import os
+import shutil
+
+datasets_location = f'/Volumes/datafoundations_sandpit/{database_name}/bootcamp/datasets/'
+
+if os.path.exists(datasets_location):
+    shutil.rmtree(datasets_location)
+os.makedirs(datasets_location)
+
+# COMMAND ----------
+
 # copy dimensions from git
 
 import os
+import shutil
 
+#os.makedirs(f'{datasets_location}raw', exist_ok=True)
 working_dir = '/'.join(os.getcwd().split('/')[0:5])
 git_datasets_location = f'{working_dir}/Datasets/dimensions/'
-
+shutil.copytree(f'{git_datasets_location}', f'{datasets_location}raw/', True)
 # move all dimensions to their directories
 dimensions  =['products','stores','users']
 for dim in dimensions:
-  dbutils.fs.cp(f'file:{git_datasets_location}{dim}.json', f'{datasets_location}{dim}/{dim}.json')
+  os.makedirs(f'{datasets_location}{dim}', exist_ok=True)
+  shutil.copy(f'{git_datasets_location}{dim}.json', f'{datasets_location}{dim}/{dim}.json')
 
 
 

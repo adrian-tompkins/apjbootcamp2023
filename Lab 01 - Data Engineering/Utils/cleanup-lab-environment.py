@@ -1,9 +1,5 @@
 # Databricks notebook source
 current_user_id = dbutils.notebook.entry_point.getDbutils().notebook().getContext().userName().get()
-datasets_location = f'/FileStore/tmp/{current_user_id}/datasets/'
-
-dbutils.fs.rm(datasets_location, True)
-print(f'Deleted data files from location: %s' %datasets_location)
 
 # COMMAND ----------
 
