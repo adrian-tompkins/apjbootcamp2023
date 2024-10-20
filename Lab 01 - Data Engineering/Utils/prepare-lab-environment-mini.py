@@ -6,12 +6,14 @@
 
 current_user_id = dbutils.notebook.entry_point.getDbutils().notebook().getContext().userName().get()
 
-
 # COMMAND ----------
 
 database_name = current_user_id.split('@')[0].replace('.','_')+'_bootcamp'
-spark.sql(f'create database if not exists {database_name};')
 spark.sql(f'use {database_name}')
+
+# COMMAND ----------
+
+datasets_location = f'/Volumes/datafoundations_sandpit/{database_name}/bootcamp/datasets/'
 
 # COMMAND ----------
 

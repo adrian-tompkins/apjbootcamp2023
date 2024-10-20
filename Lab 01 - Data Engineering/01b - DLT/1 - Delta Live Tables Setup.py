@@ -27,42 +27,16 @@
 
 # MAGIC %md
 # MAGIC
-# MAGIC ## Configure DLT Pipeline
+# MAGIC ## Setup Pipeline
 # MAGIC
-# MAGIC Pipeline code is stored in a different notebook. This notebook will help you get some custom values needed to create DLT Pipeline.
+# MAGIC Setup your serverless DLT pipeline from 'Data Engineering -> Delta Live Tables' section on the left menu.
+# MAGIC When configuring the pipeline; set the following configuration options
+# MAGIC  - Serverless turned on
+# MAGIC  - "Triggered" mode
+# MAGIC  - Use the `2 - Transform` notebook
+# MAGIC  - Under destination, write to Unity Catalog, using the `datafoundations_sandpit` catalog, and your bootcamp schema
+# MAGIC  - Under `Advanced -> Configuration` add a new configuration key `source_volume` with your volume's path ie `/Volumes/datafoundations_sandpit/<bootcamp_schema>/bootcamp`
 # MAGIC
-# MAGIC To run this lab we need to use standardized values for  **Target** and  **Storage Location** and **Configuration** .
-# MAGIC
-# MAGIC
-# MAGIC
-# MAGIC
-# MAGIC Run the cell bellow and use values returned. They will be specific to your lab environment.
-
-# COMMAND ----------
-
-storage_location = f'/FileStore/tmp/{current_user_id}/dlt_pipeline'
-pipline_name = f"{current_user_id}_pipeline"
-notebook_path = f"/Repos/{current_user_id}/apjbootcamp2023/Lab 01 - Data Engineering/01b - DLT/2 - Transform"
-
-displayHTML("""<h2>Use these values to create your Delta Live Pipeline</h2>""")
-displayHTML("""<b>Pipeline name: </b>""")
-displayHTML(f"""<b style="color:green">{pipline_name}</b>""")
-
-
-displayHTML("""<b>Pipeline Mode: </b>""")
-displayHTML(f"""<b style="color:green">Triggered</b>""")
-
-displayHTML("""<b>Noteook path: </b>""")
-displayHTML(f"""<b style="color:green">{notebook_path}</b>""")
-
-displayHTML("""<b>Destination:</b>""")
-displayHTML("""<b style="color:green">Unity Catalog: bootcamp</b>""")
-displayHTML("""<b>Target Schema:</b>""")
-displayHTML("""<b style="color:green">{}</b>""".format(database_name))
-displayHTML("""<b>Advanced -> Configuration:</b>""")
-displayHTML("""Key: <b style="color:green">current_user_id</b>""")
-displayHTML("""Value: <b style="color:green">{}</b>""".format(current_user_id))
-
 
 # COMMAND ----------
 
